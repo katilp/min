@@ -1,25 +1,17 @@
 import "./App.css";
-import logo from "./assets/svg/svgs.tsx";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./pages/Home";
+import Mineral from "./pages/Mineral";
+
 function App() {
   return (
-    <div className="App">
-      <div className="container d-flex flex-column align-items-center mt-5">
-        {logo}
-        <h1 className="pt-4 mt-5 w-75 fs-1 fw-bold">ReactStrap Template</h1>
-        <p className="pt-2 mt-1 w-75">
-          This innovative template seamlessly integrates React and Bootstrap,
-          providing a streamlined solution for individuals seeking to utilize
-          the benefits of both technologies. By combining these powerful tools,
-          it greatly simplifies the process for those who are already familiar
-          with React and desire to incorporate the styling capabilities of
-          Bootstrap into their projects.
-        </p>
-        <p className="lead footer mt-2 w-75">
-          Sharp Circle Inc. proudly presents a creation expertly coded by Corey
-          Jimenez
-        </p>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/minerals" element={<Mineral/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
