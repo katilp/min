@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Mineral() {
+const Mineral = () => {
     return (
         <div>Mineral</div>
     )
