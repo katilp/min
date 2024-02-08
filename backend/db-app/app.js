@@ -7,6 +7,7 @@ var mariadb = require('mariadb');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var listRouter = require('./routes/list');
 
 var app = express();
 
@@ -31,6 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/list', listRouter);
+app.use('/users2', users2Router);
 
 const pool = mariadb.createPool({
   host: db_host,
