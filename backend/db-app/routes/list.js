@@ -3,7 +3,7 @@ var router = express.Router();
 var mariadb = require('mariadb');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
   
   require('dotenv').config();
 
@@ -20,29 +20,19 @@ router.get('/', function(req, res, next) {
     database: 'mineral_db'
   });
   
-  async function asyncFunction() {
-    let conn;
-    try {
-      conn = await pool.getConnection();
-      const rows = await conn.query("SELECT * FROM tableName");
-      console.log(rows); //[ {val: 1}, meta: ... ]
-      return rows;
-    } catch (err) {
-      throw err;
-    } finally {
-      if (conn) return conn.end();
-    }
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const rows = await conn.query("SELECT * FROM tableName");
+    console.log(rows); 
+    res.render('list', { list: JSON.stringify(rows) });
+  } catch (err) {
+    throw err;
+  } finally {
+    if (conn) return conn.end();
   }
-  
-  //console.log(asyncFunction());
-  
-  //res.send(asyncFunction())
-  res.render('list', { list: asyncFunction() });
 
+  
 });
-
-function listall() {
-  return 'listing';
-}
 
 module.exports = router;
