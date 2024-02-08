@@ -33,7 +33,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/list', listRouter);
-app.use('/users2', users2Router);
 
 const pool = mariadb.createPool({
   host: db_host,
