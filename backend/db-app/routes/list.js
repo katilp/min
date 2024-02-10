@@ -4,7 +4,7 @@ var mariadb = require('mariadb');
 
 /* GET listing http://<IP>:3001/list for all, http://<IP>:3001/list/item_id/<N> for item_id N */
 router.get('/:item_id?', async function(req, res, next) {
-  
+ 
   require('dotenv').config();
 
   // Read values from the environment
@@ -20,8 +20,9 @@ router.get('/:item_id?', async function(req, res, next) {
   });
   
   const item_id = req.params.item_id;
+  
   var myQueryString = ""
-  if (item_id) {
+  if (item_id) { 
     myQueryString = "SELECT * FROM tableName WHERE item_id=" + item_id
   }
   else {
@@ -32,13 +33,17 @@ router.get('/:item_id?', async function(req, res, next) {
   try {
     conn = await pool.getConnection();
     const rows = await conn.query( myQueryString );
-      res.send(rows);
+      if (item_id) {
+        res.send(rows[0]);
+      }
+      else {
+        res.send(rows);
+      }
   } catch (err) {
     throw err;
   } finally {
     if (conn) return conn.end();
   }
-
   
 });
 
