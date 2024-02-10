@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mariadb = require('mariadb');
 
-/* GET users listing. */
+/* GET listing http://<IP>:3001/list for all, http://<IP>:3001/list/item_id/<N> for item_id N */
 router.get('/:item_id?', async function(req, res, next) {
   
   require('dotenv').config();
@@ -19,7 +19,7 @@ router.get('/:item_id?', async function(req, res, next) {
     database: 'mineral_db'
   });
   
-  const item_id = req.query.item_id;
+  const item_id = req.params.item_id;
   var myQueryString = ""
   if (item_id) {
     myQueryString = "SELECT * FROM tableName WHERE item_id=" + item_id
