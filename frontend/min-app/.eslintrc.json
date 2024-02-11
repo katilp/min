@@ -19,7 +19,7 @@
     ],
     "rules": {
         "indent": [
-            "error",
+            "warning",
             "tab"
         ],
         "linebreak-style": [
@@ -33,6 +33,7 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+		
     }
 }
