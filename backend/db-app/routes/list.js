@@ -23,10 +23,10 @@ router.get('/:item_id?', async function(req, res, next) {
   
   var myQueryString = ""
   if (item_id) { 
-    myQueryString = "SELECT * FROM tableName WHERE item_id=" + item_id
+    myQueryString = "SELECT * FROM minerals WHERE item_id=" + item_id
   }
   else {
-    myQueryString = "SELECT * FROM tableName"
+    myQueryString = "SELECT * FROM minerals"
   }
 
   let conn;
