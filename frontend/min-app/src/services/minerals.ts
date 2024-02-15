@@ -1,6 +1,6 @@
 import { MineralResponse } from '../models/MineralResponse';
 
-const baseUrl = 'http://34.168.8.74:3001/list';
+const baseUrl = 'http://localhost:3001/list';
 
 export const getAll = async () => {
 	const response = await fetch(baseUrl); //TODO: see if method and headers need to be specified
