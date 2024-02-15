@@ -18,18 +18,29 @@ const MineralTable = () => {
 		setMinerals(mineralList);
 	};
 
+
 	return (
 		<div>
 			<table>
 				<tr>
-					<th>Which rock</th>
-					<th>Found in</th>
+					<th>Classificazione</th>
+					<th>Minerale</th>
+					<th>Trovato in</th>
 				</tr>
-				{minerals.map(min => {
+				{/* {minerals.map(min => {
 					return (
 						<TableRow key={min.item_id} mineral={min} />
 					);
-				})};
+				})}; */}
+				{minerals.map((val, key) => {
+                    return (
+                        <tr key={key}>
+                            <td>{val.Classificazione}</td>
+                            <td>{val.Minerale}</td>
+                            <td>{val.Luogo}</td>
+                        </tr>
+                    );
+                })}
 			</table>
 		</div>
 	);

@@ -1,5 +1,5 @@
 export interface MineralResponse {
-    item_id:number,
+    item_id:string,
     Classificazione:string,
     Minerale:string,
     Luogo:string,
