@@ -21,13 +21,15 @@ const MineralTable = () => {
 		<div>
 			<table>
 				<tr>
+					<th>ID</th>
 					<th>Classificazione</th>
 					<th>Minerale</th>
 					<th>Trovato in</th>
 				</tr>
-				{minerals.map((mineral, key) => {
+				{minerals.map((mineral) => {
                     return (
-                        <tr key={key}>
+                        <tr key={mineral.item_id}>
+							<td>{mineral.item_id}</td>
                             <td>{mineral.Classificazione}</td>
                             <td>{mineral.Minerale}</td>
                             <td>{mineral.Luogo}</td>
