@@ -1,6 +1,5 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import TableRow from './TableRow';
 import { MineralResponse } from '../models/MineralResponse';
 import { getAll } from '../services/minerals';
 
@@ -22,14 +21,21 @@ const MineralTable = () => {
 		<div>
 			<table>
 				<tr>
-					<th>Which rock</th>
-					<th>Found in</th>
+					<th>ID</th>
+					<th>Classificazione</th>
+					<th>Minerale</th>
+					<th>Trovato in</th>
 				</tr>
-				{minerals.map(min => {
-					return (
-						<TableRow key={min.item_id} mineral={min} />
-					);
-				})};
+				{minerals.map((mineral) => {
+                    return (
+                        <tr key={mineral.item_id}>
+							<td>{mineral.item_id}</td>
+                            <td>{mineral.Classificazione}</td>
+                            <td>{mineral.Minerale}</td>
+                            <td>{mineral.Luogo}</td>
+                        </tr>
+                    );
+                })}
 			</table>
 		</div>
 	);

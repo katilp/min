@@ -11,6 +11,7 @@ const TableRow = ({mineral}:TableRowProps) => {
 		<div>
 			<tr>
 				<td>{mineral.Classificazione}</td>
+				<td>{mineral.Minerale}</td>
 				<td>{mineral.Luogo}</td>
 			</tr>
 		</div>
