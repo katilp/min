@@ -7,7 +7,10 @@ const MineralTable = () => {
 
 	const [minerals, setMinerals] = useState<MineralResponse[]>([]);
 	const [filteredMinerals, setFilteredMinerals] = useState<MineralResponse[]>([]);
+	const [mineralFilter, setMineralFilter] = useState<string>('');
+	const [locationFilter, setLocationFilter] = useState<string>('');
 
+	/// DATA FETCHING AND INIT STUFF
 	useEffect(() => {
 		fetchData();
 	}, []);
@@ -18,9 +21,22 @@ const MineralTable = () => {
 		setFilteredMinerals(mineralList);
 	};
 
+	/// FILTERING
 	const handleMineralFilter = (event : React.ChangeEvent<HTMLInputElement>) : void => {
 		const value = event.target.value;
-		const filtered = minerals.filter(min => min.Minerale.toLowerCase().includes(value.toLowerCase()));
+		setMineralFilter(value);
+		const filtered = minerals.filter(min => 
+			min.Minerale.toLowerCase().includes(value.toLowerCase()) && //cannot call mineralFilter bc delay in one character
+			min.Luogo.toLowerCase().includes(locationFilter.toLowerCase()));
+		setFilteredMinerals(filtered);
+	};
+
+	const handleLocationFilter = (event : React.ChangeEvent<HTMLInputElement>) : void => {
+		const value = event.target.value;
+		setLocationFilter(value);
+		const filtered = minerals.filter(min => 
+			min.Luogo.toLowerCase().includes(value.toLowerCase()) &&
+			min.Minerale.toLowerCase().includes(mineralFilter.toLowerCase()));
 		setFilteredMinerals(filtered);
 	};
 
@@ -45,7 +61,7 @@ const MineralTable = () => {
 							<input type="text" onChange={handleMineralFilter}></input>
 						</th>
 						<th>
-							<input></input>
+							<input type="text" onChange={handleLocationFilter}></input>
 						</th>
 					</tr>
 					{filteredMinerals.map((mineral) => {
