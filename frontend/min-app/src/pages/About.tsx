@@ -1,8 +1,9 @@
 import React from 'react';
+import './PageLayout.css';
 
 const About = () => {
 	return (
-		<div>
+		<div className='margin'>
 			Buon compleanno vecio!
 		</div>
 	);

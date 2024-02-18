@@ -4,6 +4,7 @@ import { MineralResponse } from '../models/MineralResponse';
 import { getAll } from '../services/minerals';
 import TableRow from './TableRow';
 import Table from 'react-bootstrap/Table';
+import Alert from 'react-bootstrap/Alert';
 
 import { Link } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
@@ -11,6 +12,7 @@ import LoadingSpinner from './LoadingSpinner';
 const MineralTable = () => {
 
 	const [loading, setLoading] = useState<boolean>(true);
+	const [fetchingError, setFetchingError] = useState<boolean>(false);
 	const [minerals, setMinerals] = useState<MineralResponse[]>([]);
 	const [filteredMinerals, setFilteredMinerals] = useState<MineralResponse[]>([]);
 	const [mineralFilter, setMineralFilter] = useState<string>('');
@@ -24,9 +26,14 @@ const MineralTable = () => {
 	}, []);
     
 	const fetchData = async () => {
-		const mineralList : MineralResponse[] = await getAll();	
-		setMinerals(mineralList);
-		setFilteredMinerals(mineralList);
+		try {
+			const mineralList : MineralResponse[] = await getAll();	
+			setMinerals(mineralList);
+			setFilteredMinerals(mineralList);
+		}
+		catch (e) {
+			setFetchingError(true);
+		}
 		setLoading(false);
 	};
 
@@ -63,10 +70,15 @@ const MineralTable = () => {
 
 	return (
 		<div>
+			{fetchingError &&
+				<Alert variant='danger'>
+					Error fetching the data
+				</Alert>	
+			}
 			{loading && 
 				<LoadingSpinner/>
 			}
-			{!loading &&
+			{!loading && !fetchingError &&
 				<Table striped>
 					<thead>
 						<tr>
