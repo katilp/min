@@ -81,7 +81,7 @@ const MineralTable = () => {
 					{filteredMinerals.map((mineral) => {
 						return (
 							<tr key={mineral.item_id}>
-								<td>{mineral.item_id}</td>
+								<td><Link to ={`/minerals/${mineral.item_id}`}>{mineral.item_id}</Link></td>
 								<td>{mineral.Classificazione}</td>
 								<td>{mineral.Minerale}</td>
 								<td>{mineral.Luogo}</td>
