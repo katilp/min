@@ -6,6 +6,7 @@ import { getAll } from '../services/minerals';
 const MineralTable = () => {
 
 	const [minerals, setMinerals] = useState<MineralResponse[]>([]);
+	const [filteredMinerals, setFilteredMinerals] = useState<MineralResponse[]>([]);
 
 	useEffect(() => {
 		fetchData();
@@ -13,29 +14,51 @@ const MineralTable = () => {
     
 	const fetchData = async () => {
 		const mineralList : MineralResponse[] = await getAll();	
-		//console.log('minerals ', mineralList);
 		setMinerals(mineralList);
+		setFilteredMinerals(mineralList);
+	};
+
+	const handleMineralFilter = (event : React.ChangeEvent<HTMLInputElement>) : void => {
+		const value = event.target.value;
+		const filtered = minerals.filter(min => min.Minerale.toLowerCase().includes(value.toLowerCase()));
+		setFilteredMinerals(filtered);
 	};
 
 	return (
 		<div>
 			<table>
-				<tr>
-					<th>ID</th>
-					<th>Classificazione</th>
-					<th>Minerale</th>
-					<th>Trovato in</th>
-				</tr>
-				{minerals.map((mineral) => {
-                    return (
-                        <tr key={mineral.item_id}>
-							<td>{mineral.item_id}</td>
-                            <td>{mineral.Classificazione}</td>
-                            <td>{mineral.Minerale}</td>
-                            <td>{mineral.Luogo}</td>
-                        </tr>
-                    );
-                })}
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Classificazione</th>
+						<th>Minerale</th>
+						<th>Trovato in</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th></th>
+						<th>
+							<input></input>
+						</th>
+						<th>
+							<input type="text" onChange={handleMineralFilter}></input>
+						</th>
+						<th>
+							<input></input>
+						</th>
+					</tr>
+					{filteredMinerals.map((mineral) => {
+						return (
+							<tr key={mineral.item_id}>
+								<td>{mineral.item_id}</td>
+								<td>{mineral.Classificazione}</td>
+								<td>{mineral.Minerale}</td>
+								<td>{mineral.Luogo}</td>
+							</tr>
+						);
+					})}
+				</tbody>
 			</table>
 		</div>
 	);
