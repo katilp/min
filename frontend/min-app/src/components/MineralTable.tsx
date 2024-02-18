@@ -5,9 +5,11 @@ import { getAll } from '../services/minerals';
 import TableRow from './TableRow';
 import Table from 'react-bootstrap/Table';
 import Alert from 'react-bootstrap/Alert';
+import Form from 'react-bootstrap/Form';
 
 import { Link } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
+import './Helpers.css';
 
 const MineralTable = () => {
 
@@ -22,10 +24,10 @@ const MineralTable = () => {
 
 	/// DATA FETCHING AND INIT STUFF
 	useEffect(() => {
-		fetchData();
+		fetchAndSetData();
 	}, []);
     
-	const fetchData = async () => {
+	const fetchAndSetData = async () => {
 		try {
 			const mineralList : MineralResponse[] = await getAll();	
 			setMinerals(mineralList);
@@ -79,7 +81,7 @@ const MineralTable = () => {
 				<LoadingSpinner/>
 			}
 			{!loading && !fetchingError &&
-				<Table striped>
+				<Table striped className='width'>
 					<thead>
 						<tr>
 							<th>ID</th>
@@ -93,10 +95,10 @@ const MineralTable = () => {
 							<th></th>
 							<th></th>
 							<th>
-								<input type="text" onChange={handleMineralFilter}></input>
+								<Form.Control type="text" placeholder="Filter" onChange={handleMineralFilter} />
 							</th>
 							<th>
-								<input type="text" onChange={handleLocationFilter}></input>
+								<Form.Control type="text" placeholder="Filter" onChange={handleLocationFilter} />
 							</th>
 						</tr>
 						{filteredMinerals.map((mineral) => {
