@@ -8,6 +8,7 @@ import './PageLayout.css';
 const Mineral = () => {
 	const {id} = useParams();
 	const [mineral, setMineral] = useState<MineralResponse>();
+	const imgUrl = 'http://34.168.8.74/img/';
 
 	useEffect(() => {
 		fetchData();
@@ -19,9 +20,20 @@ const Mineral = () => {
 		setMineral(mineralResponse);
 	};
 
+	//TODO: count the number of photos 0/1/2/3 and display accordingly
+	//TODO: configure the IP elsewhere 
+	//TODO: scale the image properly
 	return (
 		<div className='margin'>
-			{mineral?.Minerale}
+			<img src={imgUrl+mineral?.item_id+'-1.jpg'}></img>
+			<ul>
+				<li>{mineral?.Minerale}</li>
+				<li>{mineral?.item_id} - {mineral?.Classificazione}</li>
+				<li>{mineral?.Luogo}, {mineral?.Stato}</li>
+				<li>Trovato: {mineral?.Anno_di_ritr}</li>
+				<li>In collezzione: {mineral?.Anno_in_coll}</li>
+				<li>Note: {mineral?.Note}</li>
+			</ul>
 		</div>
 	);
 
