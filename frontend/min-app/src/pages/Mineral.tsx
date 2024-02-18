@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MineralResponse } from '../models/MineralResponse';
 import { getMineralById } from '../services/minerals';
+import './PageLayout.css';
 
 const Mineral = () => {
 	const {id} = useParams();
@@ -19,7 +20,7 @@ const Mineral = () => {
 	};
 
 	return (
-		<div>
+		<div className='margin'>
 			{mineral?.Minerale}
 		</div>
 	);

@@ -4,9 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Header from './components/Header';
 import Mineral from './pages/Mineral';
+import About from './pages/About';
 
 
-//TODO: change /minerals to /mineral/:id
 
 const App = () => {
 	return (
@@ -15,6 +15,7 @@ const App = () => {
 			<Routes>
 				<Route path="/" element={<Home/>} />
 				<Route path='minerals/:id' element={<Mineral/>} />
+				<Route path='about' element={<About/>} />
 			</Routes>
 		</BrowserRouter>
 	);
