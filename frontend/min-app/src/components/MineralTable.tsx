@@ -8,7 +8,13 @@ import { Link } from 'react-router-dom';
 const MineralTable = () => {
 
 	const [minerals, setMinerals] = useState<MineralResponse[]>([]);
+	const [filteredMinerals, setFilteredMinerals] = useState<MineralResponse[]>([]);
+	const [mineralFilter, setMineralFilter] = useState<string>('');
+	const [locationFilter, setLocationFilter] = useState<string>('');
 
+	//let classificationList : string[] = [];
+
+	/// DATA FETCHING AND INIT STUFF
 	useEffect(() => {
 		fetchData();
 	}, []);
@@ -16,6 +22,38 @@ const MineralTable = () => {
 	const fetchData = async () => {
 		const mineralList : MineralResponse[] = await getAll();	
 		setMinerals(mineralList);
+		setFilteredMinerals(mineralList);
+	};
+
+	/// FILTERING
+	// const createClassificationList = (minList: MineralResponse[]) : string[] => {
+	// 	const classList : string[] = [];
+	// 	minList.forEach(min => {
+	// 		const splitstring = min.Classificazione.split('-');
+	// 		const recomposedString = splitstring[0] + splitstring[1];
+	// 		if (!classList.includes(recomposedString)) {
+	// 			classList.push(recomposedString);
+	// 		}
+	// 	});
+	// 	return classList;
+	// };
+
+	const handleMineralFilter = (event : React.ChangeEvent<HTMLInputElement>) : void => {
+		const value = event.target.value;
+		setMineralFilter(value);
+		const filtered = minerals.filter(min => 
+			min.Minerale.toLowerCase().includes(value.toLowerCase()) && //cannot call mineralFilter bc delay in one character
+			min.Luogo.toLowerCase().includes(locationFilter.toLowerCase()));
+		setFilteredMinerals(filtered);
+	};
+
+	const handleLocationFilter = (event : React.ChangeEvent<HTMLInputElement>) : void => {
+		const value = event.target.value;
+		setLocationFilter(value);
+		const filtered = minerals.filter(min => 
+			min.Luogo.toLowerCase().includes(value.toLowerCase()) &&
+			min.Minerale.toLowerCase().includes(mineralFilter.toLowerCase()));
+		setFilteredMinerals(filtered);
 	};
 
 	return (
@@ -30,16 +68,24 @@ const MineralTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{minerals.map((mineral) => {
+					<tr>
+						<th></th>
+						<th></th>
+						<th>
+							<input type="text" onChange={handleMineralFilter}></input>
+						</th>
+						<th>
+							<input type="text" onChange={handleLocationFilter}></input>
+						</th>
+					</tr>
+					{filteredMinerals.map((mineral) => {
 						return (
-							//TODO: make sure extracted logic in TableRow does not break layout
-							// <TableRow key={mineral.item_id} mineral={mineral}></TableRow>	
 							<tr key={mineral.item_id}>
-								<td><Link to ={`/minerals/${mineral.item_id}`}>{mineral.item_id}</Link></td>
+								<td>{mineral.item_id}</td>
 								<td>{mineral.Classificazione}</td>
 								<td>{mineral.Minerale}</td>
 								<td>{mineral.Luogo}</td>
-							</tr>			
+							</tr>
 						);
 					})}
 				</tbody>
