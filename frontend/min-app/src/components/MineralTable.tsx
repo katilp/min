@@ -10,6 +10,8 @@ const MineralTable = () => {
 	const [mineralFilter, setMineralFilter] = useState<string>('');
 	const [locationFilter, setLocationFilter] = useState<string>('');
 
+	//let classificationList : string[] = [];
+
 	/// DATA FETCHING AND INIT STUFF
 	useEffect(() => {
 		fetchData();
@@ -22,6 +24,18 @@ const MineralTable = () => {
 	};
 
 	/// FILTERING
+	// const createClassificationList = (minList: MineralResponse[]) : string[] => {
+	// 	const classList : string[] = [];
+	// 	minList.forEach(min => {
+	// 		const splitstring = min.Classificazione.split('-');
+	// 		const recomposedString = splitstring[0] + splitstring[1];
+	// 		if (!classList.includes(recomposedString)) {
+	// 			classList.push(recomposedString);
+	// 		}
+	// 	});
+	// 	return classList;
+	// };
+
 	const handleMineralFilter = (event : React.ChangeEvent<HTMLInputElement>) : void => {
 		const value = event.target.value;
 		setMineralFilter(value);
@@ -54,9 +68,7 @@ const MineralTable = () => {
 				<tbody>
 					<tr>
 						<th></th>
-						<th>
-							<input></input>
-						</th>
+						<th></th>
 						<th>
 							<input type="text" onChange={handleMineralFilter}></input>
 						</th>
