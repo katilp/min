@@ -20,15 +20,14 @@ const Mineral = () => {
 		setMineral(mineralResponse);
 	};
 
-	//TODO: count the number of photos 0/1/2/3 and display accordingly
-	//TODO: configure the IP elsewhere 
-	//TODO: scale the image properly
 	return (
 		<div className='margin'>
-			<img src={imgUrl+mineral?.item_id+'-1.jpg'}></img>
+			{!!mineral?.Foto_1 && <img src={imgUrl+mineral?.item_id+'-1.jpg'}></img>}
+			{!!mineral?.Foto_2 && <img src={imgUrl+mineral?.item_id+'-2.jpg'}></img> }
+			{!!mineral?.Foto_3 && <img src={imgUrl+mineral?.item_id+'-3.jpg'}></img> }
 			<ul>
 				<li>{mineral?.Minerale}</li>
-				<li>{mineral?.item_id} - {mineral?.Classificazione}</li>
+				<li>{mineral?.item_id}: {mineral?.Classificazione}</li>
 				<li>{mineral?.Luogo}, {mineral?.Stato}</li>
 				<li>Trovato: {mineral?.Anno_di_ritr}</li>
 				<li>In collezzione: {mineral?.Anno_in_coll}</li>
