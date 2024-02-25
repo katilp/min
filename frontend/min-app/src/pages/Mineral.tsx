@@ -30,7 +30,7 @@ const Mineral = () => {
 				<li>{mineral?.item_id}: {mineral?.Classificazione}</li>
 				<li>{mineral?.Luogo}, {mineral?.Stato}</li>
 				<li>Trovato: {mineral?.Anno_di_ritr}</li>
-				<li>In collezzione: {mineral?.Anno_in_coll}</li>
+				<li>In collezione: {mineral?.Anno_in_coll}</li>
 				<li>Note: {mineral?.Note}</li>
 			</ul>
 		</div>
