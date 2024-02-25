@@ -11,7 +11,7 @@ const Header = () => {
 			<Navbar expand="lg" className="bg-body-tertiary" fixed="top">
 				<Container>
 					<Nav className="me-auto">
-						<Navbar.Brand>I minerali del vecio</Navbar.Brand>
+						<Navbar.Brand>I minerali di Diego</Navbar.Brand>
 						<Nav.Link href="/">Home</Nav.Link>
 						<Nav.Link href="/about">About</Nav.Link>
 					</Nav>
