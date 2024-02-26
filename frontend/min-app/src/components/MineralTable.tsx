@@ -19,6 +19,8 @@ const MineralTable = () => {
 	const [filteredMinerals, setFilteredMinerals] = useState<MineralResponse[]>([]);
 	const [mineralFilter, setMineralFilter] = useState<string>('');
 	const [locationFilter, setLocationFilter] = useState<string>('');
+	const [countryFilter, setCountryFilter] = useState<string>('');
+
 
 	//let classificationList : string[] = [];
 
@@ -57,7 +59,8 @@ const MineralTable = () => {
 		setMineralFilter(value);
 		const filtered = minerals.filter(min => 
 			min.Minerale.toLowerCase().includes(value.toLowerCase()) && //cannot call mineralFilter bc delay in one character
-			min.Luogo.toLowerCase().includes(locationFilter.toLowerCase()));
+			min.Luogo.toLowerCase().includes(locationFilter.toLowerCase()) &&
+			min.Stato.toLowerCase().includes(countryFilter.toLowerCase()));
 		setFilteredMinerals(filtered);
 	};
 
@@ -66,7 +69,18 @@ const MineralTable = () => {
 		setLocationFilter(value);
 		const filtered = minerals.filter(min => 
 			min.Luogo.toLowerCase().includes(value.toLowerCase()) &&
-			min.Minerale.toLowerCase().includes(mineralFilter.toLowerCase()));
+			min.Minerale.toLowerCase().includes(mineralFilter.toLowerCase()) &&
+			min.Stato.toLowerCase().includes(countryFilter.toLowerCase()));
+		setFilteredMinerals(filtered);
+	};
+
+	const handleCountryFilter = (event : React.ChangeEvent<HTMLInputElement>) : void => {
+		const value = event.target.value;
+		setCountryFilter(value);
+		const filtered = minerals.filter(min => 
+			min.Stato.toLowerCase().includes(value.toLowerCase()) &&
+			min.Minerale.toLowerCase().includes(mineralFilter.toLowerCase()) &&
+			min.Luogo.toLowerCase().includes(locationFilter.toLowerCase()));
 		setFilteredMinerals(filtered);
 	};
 
@@ -88,6 +102,7 @@ const MineralTable = () => {
 							<th>Classificazione</th>
 							<th>Minerale</th>
 							<th>Trovato in</th>
+							<th>Stato</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -100,6 +115,9 @@ const MineralTable = () => {
 							<th>
 								<Form.Control type="text" placeholder="Filter" onChange={handleLocationFilter} />
 							</th>
+							<th>
+								<Form.Control type="text" placeholder="Filter" onChange={handleCountryFilter} />
+							</th>
 						</tr>
 						{filteredMinerals.map((mineral) => {
 							return (
@@ -108,6 +126,7 @@ const MineralTable = () => {
 									<td>{mineral.Classificazione}</td>
 									<td>{mineral.Minerale}</td>
 									<td>{mineral.Luogo}</td>
+									<td>{mineral.Stato}</td>
 								</tr>
 							);
 						})}
